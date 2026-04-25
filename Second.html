@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Goda - Hotels in Bali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f7f8fa;
+    min-height: 100vh;
+    color: #1a1a1a;
+    font-size: 14px;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ========== NAVBAR ========== */
+  .navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #eaecef;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: 48px; }
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a6aff;
+    letter-spacing: -0.5px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a5160;
+    padding: 6px 2px;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: #1a1a1a; }
+  .nav-links a.active { color: #1a6aff; }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #1a6aff;
+    border-radius: 2px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .sign-in {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+    padding: 6px 8px;
+    transition: opacity 0.2s ease;
+  }
+  .sign-in:hover { opacity: 0.7; }
+  .create-account {
+    background: #005dbd;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 10px;
+    border: none;
+    transition: background 0.2s ease;
+  }
+  .create-account:hover { background: #0f5ae8; }
+
+  /* ========== SEARCH SUMMARY ========== */
+  .search-summary {
+    background: #ffffff;
+    padding: 24px 48px;
+    border-bottom: 1px solid #eaecef;
+  }
+  .summary-row {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .summary-field {
+    flex: 1;
+    background: #f7f8fa;
+    border: 1px solid #eaecef;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    cursor: pointer;
+  }
+  .summary-field:hover {
+    border-color: #c5cbd4;
+    background: #ffffff;
+  }
+  .summary-field svg {
+    color: #1a6aff;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .summary-field.dates,
+  .summary-field.travelers { flex: 0 0 auto; min-width: 200px; }
+  .summary-text { display: flex; flex-direction: column; gap: 2px; }
+  .summary-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  .summary-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .update-btn {
+    background: #1a6aff;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 18px 32px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+  .update-btn:hover { background: #0f5ae8; }
+
+  /* ========== MAIN ========== */
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .filters-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #eaecef;
+  }
+  .filters-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    color: #1a6aff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .filters-header svg { width: 18px; height: 18px; }
+  .filter-group { margin-bottom: 22px; }
+  .filter-group:last-child { margin-bottom: 0; }
+  .filter-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #4a5160;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  /* FIX 1: Price slider — เอาสีฟ้าออก ยังไม่ได้เลือก */
+  .price-slider {
+    width: 100%;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    cursor: pointer;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-weight: 500;
+  }
+  .check-row input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  .check-row input[type="checkbox"]:checked {
+    background: #1a6aff;
+    border-color: #1a6aff;
+  }
+  .check-row input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .stars-row {
+    display: inline-flex;
+    gap: 1px;
+    color: #fbbf24;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .stars-row .empty { color: #d1d5db; }
+
+  /* FIX 2: Map card — ใช้รูปภาพแทน SVG */
+  .map-card {
+    border-radius: 16px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  .map-card:hover { transform: translateY(-2px); }
+  .map-card img.map-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .map-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .view-map-btn {
+    background: #ffffff;
+    color: #1a6aff;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    z-index: 2;
+    transition: transform 0.15s ease;
+  }
+  .view-map-btn:hover { transform: scale(1.04); }
+
+  /* ========== RESULTS ========== */
+  .results-area { display: flex; flex-direction: column; gap: 16px; }
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .results-count {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .sort-by {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #4a5160;
+  }
+  .sort-by select {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    color: #1a6aff;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding-right: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a6aff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+
+  /* FLASH DEALS */
+  .flash-box {
+    background: #ffffff;
+    border: 2px solid #1a6aff;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .flash-header-bar {
+    background: #fce7ee;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .flash-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #c72058;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .flash-timer-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* FIX 3: Flash timer — ตัวเลขสีขาว พื้นหลังสีแดง */
+  .flash-timer {
+    background: #e02040;
+    color: #ffffff;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+  }
+
+  .deal-row {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 20px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eaecef;
+    align-items: center;
+  }
+  .deal-row:last-child { border-bottom: none; }
+  .deal-img {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e5e7eb;
+  }
+  .deal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .off-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #c72058;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+  }
+  .deal-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .deal-name {
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .deal-loc {
+    font-size: 13px;
+    color: #4a5160;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .deal-loc svg { width: 14px; height: 14px; color: #6b7280; flex-shrink: 0; }
+
+  .deal-price-side {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    min-width: 110px;
+  }
+  .price-old {
+    font-size: 13px;
+    color: #9ca3af;
+    text-decoration: line-through;
+  }
+  .price-new {
+    font-size: 24px;
+    font-weight: 600;
+    color: #c72058;
+    line-height: 1;
+  }
+  .price-new .per { font-size: 10px; color: #6b7280; font-weight: 400; }
+  .claim-btn {
+    background: #c72058;
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    margin-top: 6px;
+  }
+  .claim-btn:hover { background: #a91a4a; }
+
+  /* HOTEL CARD */
+  .hotel-card {
+    background: #ffffff;
+    border: 1px solid #eaecef;
+    border-radius: 16px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .hotel-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+  .hotel-img-wrap {
+    position: relative;
+    min-height: 220px;
+    background: #e5e7eb;
+  }
+  .hotel-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .top-choice {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #ffffff;
+    color: #1a6aff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(26,106,255,0.3);
+  }
+  .top-choice svg { width: 12px; height: 12px; }
+  .hotel-content {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+  .hotel-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .hotel-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.2px;
+    flex-wrap: wrap;
+  }
+  .hotel-loc {
+    font-size: 13px;
+    color: #4a5160;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hotel-loc svg { width: 14px; height: 14px; color: #6b7280; flex-shrink: 0; }
+  .hotel-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .amenity {
+    background: #f3f4f6;
+    color: #4a5160;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .amenity svg { width: 13px; height: 13px; color: #1a6aff; }
+  .hotel-extra {
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .hotel-extra.red { color: #c72058; }
+  .hotel-extra.green { color: #059669; }
+  .hotel-extra.gray { color: #4a5160; }
+  .hotel-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    min-width: 130px;
+  }
+  .review-badge {
+    background: #eff3ff;
+    border-radius: 10px;
+    padding: 8px 12px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .review-score {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+  .review-score .num {
+    color: #1a6aff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 3px;
+  }
+  .review-count {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+  .hotel-price-block {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    margin-top: auto;
+  }
+  .hotel-price-old {
+    font-size: 10px;
+    font-weight: 400;
+    color: #424753;
+    text-decoration: line-through;
+  }
+  .hotel-price-new {
+    font-size: 26px;
+    font-weight: 600;
+    color: #c72058;
+    line-height: 1;
+  }
+  .hotel-price-new .per { font-size: 12px; color: #6b7280; font-weight: 500; }
+  .book-btn {
+    background: #c72058;
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+  .book-btn:hover { background: #a91a4a; }
+
+  /* PAGINATION */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 16px 0;
+  }
+  .page-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #eaecef;
+    background: #ffffff;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5160;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .page-btn:hover:not(.active):not(.dots) {
+    border-color: #1a6aff;
+    color: #1a6aff;
+  }
+  .page-btn.active {
+    background: #1a6aff;
+    color: #ffffff;
+    border-color: #1a6aff;
+  }
+  .page-btn.dots {
+    border: none;
+    background: none;
+    cursor: default;
+    color: #9ca3af;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: #ffffff;
+    border-top: 1px solid #eaecef;
+    padding: 56px 48px 32px;
+    margin-top: 48px;
+  }
+  .footer-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .footer-brand { max-width: 380px; }
+  .footer-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .footer-tagline {
+    font-size: 14px;
+    color: #4a5160;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .footer-copyright {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 18px;
+  }
+  .footer-socials { display: flex; gap: 16px; }
+  .social-link {
+    color: #9ca3af;
+    transition: color 0.2s ease, transform 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .social-link:hover {
+    color: #1a6aff;
+    transform: translateY(-2px);
+  }
+  .footer-col-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links a {
+    font-size: 14px;
+    color: #4a5160;
+    transition: color 0.15s ease;
+  }
+  .footer-links a:hover { color: #1a6aff; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .main { grid-template-columns: 1fr; padding: 24px; }
+    .summary-row { flex-wrap: wrap; }
+    .summary-field { flex: 1 1 calc(50% - 6px); min-width: 0; }
+    .update-btn { flex: 1 1 100%; }
+  }
+  @media (max-width: 800px) {
+    .navbar { padding: 16px 24px; }
+    .nav-left { gap: 24px; }
+    .nav-links { gap: 20px; }
+    .search-summary { padding: 16px 24px; }
+    .hotel-card { grid-template-columns: 1fr; }
+    .hotel-img-wrap { min-height: 200px; }
+    .hotel-content { grid-template-columns: 1fr; gap: 16px; }
+    .hotel-side { align-items: flex-start; }
+    .deal-row { grid-template-columns: 1fr; gap: 12px; }
+    .deal-img { height: 180px; }
+    .deal-price-side {
+      text-align: left;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer { padding: 40px 24px 28px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 540px) {
+    .nav-links, .sign-in { display: none; }
+    .summary-field { flex: 1 1 100%; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .results-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="#" class="logo">T-Goda</a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Hotels</a></li>
+      <li><a href="#">Flights</a></li>
+      <li><a href="#">Bundles</a></li>
+      <li><a href="#">Activities</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="sign-in">Sign In</a>
+    <a href="#" class="create-account">Create Account</a>
+  </div>
+</nav>
+
+<!-- SEARCH SUMMARY -->
+<div class="search-summary">
+  <div class="summary-row">
+    <div class="summary-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <div class="summary-text">
+        <span class="summary-label">Destination</span>
+        <span class="summary-value">Bali, Indonesia</span>
+      </div>
+    </div>
+    <div class="summary-field dates">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <div class="summary-text">
+        <span class="summary-label">Dates</span>
+        <span class="summary-value">Oct 12 - Oct 19, 2024</span>
+      </div>
+    </div>
+    <div class="summary-field travelers">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <div class="summary-text">
+        <span class="summary-label">Travelers</span>
+        <span class="summary-value">2 Adults, 1 Room</span>
+      </div>
+    </div>
+    <button class="update-btn">Update Search</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="filters-card">
+
+      <!-- FIX 4: ไอคอน Filters ใหม่ — funnel shape ตรงกว่าเดิม -->
+      <div class="filters-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Filters
+      </div>
+
+      <!-- FIX 1: Price Range — เอาสีฟ้าออก (ไม่มี ::after) -->
+      <div class="filter-group">
+        <div class="filter-title">Price Range</div>
+        <div class="price-labels">
+          <span>$0</span>
+          <span>$1000+</span>
+        </div>
+        <div class="price-slider"></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Property Type</div>
+        <label class="check-row"><input type="checkbox"> Hotels</label>
+        <label class="check-row"><input type="checkbox"> Resorts</label>
+        <label class="check-row"><input type="checkbox"> Apartments</label>
+        <label class="check-row"><input type="checkbox"> Villas</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Star Rating</div>
+        <label class="check-row"><input type="checkbox"> <span class="stars-row">★★★★★</span></label>
+        <label class="check-row"><input type="checkbox"> <span class="stars-row">★★★★<span class="empty">★</span></span></label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Facilities</div>
+        <label class="check-row"><input type="checkbox"> Free Wi-Fi</label>
+        <label class="check-row"><input type="checkbox"> Swimming Pool</label>
+        <label class="check-row"><input type="checkbox"> Fitness Center</label>
+        <label class="check-row"><input type="checkbox"> Spa</label>
+        <label class="check-row"><input type="checkbox"> Parking</label>
+        <label class="check-row"><input type="checkbox"> Pet Friendly</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Review Score</div>
+        <label class="check-row"><input type="checkbox"> Superb 9+</label>
+        <label class="check-row"><input type="checkbox"> Very Good 8+</label>
+        <label class="check-row"><input type="checkbox"> Good 7+</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Neighborhood</div>
+        <label class="check-row"><input type="checkbox"> Patong</label>
+        <label class="check-row"><input type="checkbox"> Karon</label>
+        <label class="check-row"><input type="checkbox"> Kata</label>
+        <label class="check-row"><input type="checkbox"> Kamala</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Bed Type</div>
+        <label class="check-row"><input type="checkbox"> Single</label>
+        <label class="check-row"><input type="checkbox"> Double</label>
+        <label class="check-row"><input type="checkbox"> King</label>
+      </div>
+    </div>
+
+    <!-- FIX 2: Map card — รูปภาพจาก postimg แทน SVG -->
+    <div class="map-card">
+      <img class="map-bg" src="https://i.postimg.cc/QdmqbhqM/Sigma.png" alt="Map of Bali">
+      <div class="map-overlay"></div>
+      <button class="view-map-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/>
+          <line x1="16" y1="6" x2="16" y2="22"/>
+        </svg>
+        View on Map
+      </button>
+    </div>
+  </aside>
+
+  <!-- RESULTS -->
+  <main class="results-area">
+
+    <div class="results-header">
+      <div class="results-count">245 properties in Bali</div>
+      <div class="sort-by">
+        Sort by:
+        <select>
+          <option>Recommended</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Top Rated</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- FLASH DEALS -->
+    <div class="flash-box">
+      <div class="flash-header-bar">
+        <div class="flash-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8 8 4 11 4 16a8 8 0 0 0 16 0c0-3-2-5-3-7-1 2-2 3-3 3 0-3-1-7-2-10z"/>
+          </svg>
+          Flash Deals for You
+        </div>
+        <!-- FIX 3: flash timer — bg แดง, ตัวเลขขาว -->
+        <div class="flash-timer-wrap">
+          Ends in:
+          <div class="flash-timer" id="flashTimer">08 : 45 : 12</div>
+        </div>
+      </div>
+
+      <div class="deal-row">
+        <div class="deal-img">
+            <span class="off-badge">60% OFF</span>
+            <a href="Third.html">
+                <img src="https://i.postimg.cc/vgVZSYpN/image.jpg" alt="Mandala Sky Luxury Villas">
+            </a>
+        </div>
+        <div class="deal-body">
+          <div class="deal-name">
+            Mandala Sky Luxury Villas
+            <span class="stars-row">★★★★★</span>
+          </div>
+          <div class="deal-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Uluwatu, Bali · Cliff-top view
+          </div>
+        </div>
+        <div class="deal-price-side">
+          <span class="price-old">$1,200</span>
+          <span class="price-new">$480<span class="per">/night</span></span>
+          <button class="claim-btn">Claim</button>
+        </div>
+      </div>
+
+      <div class="deal-row">
+        <div class="deal-img">
+          <span class="off-badge">45% OFF</span>
+          <a href="Third.html">
+          <img src="https://i.postimg.cc/5YLfSPz0/image.jpg" alt="Emerald Jungle Retreat">
+          </a>
+        </div>
+        <div class="deal-body">
+          <div class="deal-name">
+            Emerald Jungle Retreat
+            <span class="stars-row">★★★★<span class="empty">★</span></span>
+          </div>
+          <div class="deal-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Ubud, Bali · Private Sanctuary
+          </div>
+        </div>
+        <div class="deal-price-side">
+          <span class="price-old">$450</span>
+          <span class="price-new">$247 <span class="per">/night</span></span>
+          <button class="claim-btn">Claim</button>
+        </div>
+      </div>
+
+      <div class="deal-row">
+        <div class="deal-img">
+          <span class="off-badge">35% OFF</span>
+          <a href="Third.html">
+          <img src="https://i.postimg.cc/GTjrZHqp/image.jpg" alt="Seminyak Shores Club">
+          </a>
+        </div>
+        <div class="deal-body">
+          <div class="deal-name">
+            Seminyak Shores Club
+            <span class="stars-row">★★★★★</span>
+          </div>
+          <div class="deal-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Seminyak, Bali · Beachfront Bliss
+          </div>
+        </div>
+        <div class="deal-price-side">
+          <span class="price-old">$680</span>
+          <span class="price-new">$442 <span class="per">/night</span></span>
+          <button class="claim-btn">Claim</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTEL 1 -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <span class="top-choice">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/>
+          </svg>
+          Top Choice
+        </span>
+        <a href="Third.html">
+        <img src="https://i.postimg.cc/w769DQjs/image.jpg" alt="The Azure Serenity Resort">
+        </a>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-info">
+          <div class="hotel-name">
+            The Azure Serenity Resort
+            <span class="stars-row">★★★★★</span>
+          </div>
+          <div class="hotel-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Ubud, Bali · 2.5 km from center
+          </div>
+          <div class="hotel-amenities">
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <line x1="12" y1="20" x2="12.01" y2="20"/>
+              </svg>
+              Free Wi-Fi
+            </span>
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12h20"/>
+                <path d="M5 12V6a3 3 0 0 1 6 0v6"/>
+                <path d="M2 16c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"/>
+              </svg>
+              Pool
+            </span>
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <line x1="6" y1="1" x2="6" y2="4"/>
+                <line x1="10" y1="1" x2="10" y2="4"/>
+                <line x1="14" y1="1" x2="14" y2="4"/>
+              </svg>
+              Breakfast
+            </span>
+          </div>
+          <div class="hotel-extra red">Only 2 rooms left at this price!</div>
+        </div>
+        <div class="hotel-side">
+          <div class="review-badge">
+            <div class="review-score"><span class="num">8.9</span> Excellent</div>
+            <div class="review-count">1,240 reviews</div>
+          </div>
+          <div class="hotel-price-block">
+            <span class="hotel-price-old">$320</span>
+            <span class="hotel-price-new">$284 <span class="per">/night</span></span>
+            <button class="book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTEL 2 -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <a href="Third.html">
+        <img src="https://i.postimg.cc/TK1G42mv/image.jpg" alt="Lumina Beach Villas">
+        </a>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-info">
+          <div class="hotel-name">
+            Lumina Beach Villas
+            <span class="stars-row">★★★★<span class="empty">★</span></span>
+          </div>
+          <div class="hotel-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Seminyak, Bali · Beachfront
+          </div>
+          <div class="hotel-amenities">
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 22a8 8 0 0 1 16 0"/>
+                <circle cx="10" cy="9" r="4"/>
+                <path d="M22 14l-2 2-2-2"/>
+              </svg>
+              Private Beach
+            </span>
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c1.5 3 4 5 4 9a4 4 0 0 1-8 0c0-4 2.5-6 4-9z"/>
+              </svg>
+              Spa
+            </span>
+          </div>
+          <div class="hotel-extra green">Free cancellation before Oct 10</div>
+        </div>
+        <div class="hotel-side">
+          <div class="review-badge">
+            <div class="review-score"><span class="num">9.2</span> Exceptional</div>
+            <div class="review-count">856 reviews</div>
+          </div>
+          <div class="hotel-price-block">
+            <span class="hotel-price-new">$415 <span class="per">/night</span></span>
+            <button class="book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTEL 3 -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <a href="Third.html">
+        <img src="https://i.postimg.cc/0z4xRgdY/image.jpg" alt="The Palms Sanctuary">
+        </a>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-info">
+          <div class="hotel-name">
+            The Palms Sanctuary
+            <span class="stars-row">★★★★<span class="empty">★</span></span>
+          </div>
+          <div class="hotel-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Nusa Dua, Bali · 0.8 km from beach
+          </div>
+          <div class="hotel-amenities">
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="6" width="22" height="13" rx="2"/>
+                <path d="M7 19v2M17 19v2"/>
+                <line x1="6" y1="11" x2="18" y2="11"/>
+              </svg>
+              Airport Shuttle
+            </span>
+            <span class="amenity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 6.5l11 11"/>
+                <path d="M21 21l-1-1"/>
+                <path d="M3 3l1 1"/>
+                <path d="M18 22l4-4"/>
+                <path d="M2 6l4-4"/>
+                <path d="M3 10l7-7"/>
+                <path d="M14 21l7-7"/>
+              </svg>
+              Gym
+            </span>
+          </div>
+          <div class="hotel-extra gray">Breakfast + Dinner deal available</div>
+        </div>
+        <div class="hotel-side">
+          <div class="review-badge">
+            <div class="review-score"><span class="num">8.4</span> Great</div>
+            <div class="review-count">2,102 reviews</div>
+          </div>
+          <div class="hotel-price-block">
+            <span class="hotel-price-new">$189 <span class="per">/night</span></span>
+            <button class="book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <button class="page-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn dots">...</button>
+      <button class="page-btn">12</button>
+      <button class="page-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">T-Goda</div>
+      <p class="footer-tagline">Making world travel accessible, affordable, and delightful for everyone since 2024. Your journey starts here.</p>
+      <p class="footer-copyright">© 2024 T-Goda Booking. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Support</h4>
+      <ul class="footer-links">
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Mobile App</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Legal</h4>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Flash Deal Countdown
+  let totalSeconds = 8 * 3600 + 45 * 60 + 12;
+  const timerEl = document.getElementById('flashTimer');
+  function updateTimer() {
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    const s = String(totalSeconds % 60).padStart(2, '0');
+    if (timerEl) timerEl.textContent = `${h} : ${m} : ${s}`;
+    if (totalSeconds > 0) totalSeconds--;
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+
+  // Pagination
+  document.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('dots') || btn.querySelector('svg')) return;
+      document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
