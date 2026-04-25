@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Goda - Escape to Your Perfect Paradise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f7f8fa;
+    min-height: 100vh;
+  }
+
+  /* ========== NAVBAR ========== */
+  .navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #eaecef;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a6aff;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a5160;
+    text-decoration: none;
+    padding: 6px 2px;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: #1a1a1a;
+  }
+  
+
+  .nav-links a.active {
+    color: #1a6aff;
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #1a6aff;
+    border-radius: 2px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .sign-in {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+    text-decoration: none;
+    padding: 6px 8px;
+    transition: opacity 0.2s ease;
+  }
+
+  .sign-in:hover {
+    opacity: 0.7;
+  }
+
+  .create-account {
+    background: #005dbd;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.1s ease;
+    font-family: inherit;
+  }
+
+  .create-account:hover {
+    background: #0f5ae8;
+  }
+
+  /* ========== HERO SECTION ========== */
+  .hero-wrapper {
+    padding: 24px 48px;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 560px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-image: url('https://i.postimg.cc/9fScwJWG/Background.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 24px;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.5;
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+  }
+
+  /* ========== SEARCH BAR ========== */
+  .search-bar {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .search-field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    position: relative;
+  }
+
+  .search-field:hover {
+    border-color: #c5cbd4;
+    background: #fafbfc;
+  }
+
+  .search-field:focus-within {
+    border-color: #1a6aff;
+    background: #ffffff;
+  }
+
+  .search-field .icon {
+    color: #6b7280;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  .search-field input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1a1a1a;
+    width: 100%;
+    font-weight: 500;
+  }
+
+  .search-field input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .date-field {
+    position: relative;
+  }
+
+  .date-display {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+    user-select: none;
+  }
+
+  .date-display.placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .search-btn {
+    background: #1a6aff;
+    color: #ffffff;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  .search-btn:hover {
+    background: #0f5ae8;
+  }
+
+  .search-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* ========== DATE PICKER DROPDOWN ========== */
+  .date-picker {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    padding: 20px;
+    width: 640px;
+    display: none;
+    z-index: 100;
+    animation: dropDown 0.2s ease;
+  }
+
+  @keyframes dropDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .date-picker.show {
+    display: block;
+  }
+
+  .calendars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .calendar-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a5160;
+    transition: background 0.15s ease;
+  }
+
+  .nav-btn:hover {
+    background: #f3f4f6;
+  }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+
+  .weekday {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    padding: 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+    user-select: none;
+  }
+
+  .day:hover:not(.empty):not(.disabled) {
+    background: #eff3ff;
+  }
+
+  .day.empty {
+    cursor: default;
+  }
+
+  .day.disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+  }
+
+  .day.selected {
+    background: #1a6aff;
+    color: #ffffff;
+  }
+
+  .day.in-range {
+    background: #eff3ff;
+    border-radius: 0;
+  }
+
+  .day.range-start {
+    background: #1a6aff;
+    color: #ffffff;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .day.range-end {
+    background: #1a6aff;
+    color: #ffffff;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .day.range-start.range-end {
+    border-radius: 8px;
+  }
+
+  .picker-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #eaecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .picker-info {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .picker-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-clear, .btn-done {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s ease;
+  }
+
+  .btn-clear {
+    background: transparent;
+    color: #4a5160;
+  }
+
+  .btn-clear:hover {
+    background: #f3f4f6;
+  }
+
+  .btn-done {
+    background: #1a6aff;
+    color: #ffffff;
+  }
+
+  .btn-done:hover {
+    background: #0f5ae8;
+  }
+
+  /* ========== CONTENT CONTAINER ========== */
+  .container {
+    padding: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ========== FEATURES SECTION ========== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+  }
+
+  .feature-card {
+    background: #eaecef;
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .feature-icon.blue {
+    background: #dbeafe;
+    color: #1a6aff;
+  }
+
+  .feature-icon.pink {
+    background: #fce7f3;
+    color: #db2777;
+  }
+
+  .feature-icon.amber {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  .feature-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a5160;
+    line-height: 1.55;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ========== TRENDING SECTION ========== */
+  .trending {
+    margin-bottom: 80px;
+  }
+
+  .trending-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+  }
+
+  .trending-title-group h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.8px;
+    margin-bottom: 6px;
+  }
+
+  .trending-title-group p {
+    font-size: 15px;
+    color: #4a5160;
+    font-weight: 400;
+  }
+
+  .view-all {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a6aff;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    padding: 8px 4px;
+    transition: opacity 0.15s ease;
+  }
+
+  .view-all:hover {
+    opacity: 0.75;
+  }
+
+  .destinations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .destination {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .destination:hover {
+    transform: translateY(-4px);
+  }
+
+  .destination-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #e5e7eb;
+  }
+
+  .destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .destination:hover .destination-image img {
+    transform: scale(1.05);
+  }
+
+  .top-rated-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .destination-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+
+  .destination-price {
+    font-size: 14px;
+    color: #4a5160;
+    font-weight: 400;
+  }
+
+  .destination-price .price {
+    color: #1a6aff;
+    font-weight: 700;
+  }
+
+  /* ========== SUMMER SALES BANNER ========== */
+  .summer-sales {
+    position: relative;
+    background: #c72058;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1200px;
+    height: 416px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+    padding: 48px 56px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Decorative tag icon behind text */
+
+  .sales-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .sales-title {
+    font-size: 44px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+
+  .sales-desc {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    opacity: 0.95;
+    max-width: 460px;
+  }
+
+  .sales-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-explore {
+    background: #ffffff;
+    color: #c72058;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-explore:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+
+  .btn-join {
+    background: transparent;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: 1.5px solid #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .btn-join:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .sales-image {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .sales-image img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 18px;
+    transform: rotate(6deg);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease;
+  }
+
+  .sales-image img:hover {
+    transform: rotate(3deg) scale(1.02);
+  }
+
+  /* ========== NEWSLETTER ========== */
+  .newsletter {
+    background: #eaecef;
+    border-radius: 20px;
+    padding: 56px 32px;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .newsletter-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    color: #1a6aff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+
+  .newsletter-desc {
+    font-size: 15px;
+    color: #4a5160;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto 32px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto 16px;
+    align-items: stretch;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    border: 1px solid #d1d5db;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1a1a1a;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: border-color 0.2s ease;
+  }
+
+  .newsletter-input:focus {
+    border-color: #1a6aff;
+  }
+
+  .newsletter-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .newsletter-btn {
+    background: #1a6aff;
+    color: #ffffff;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover {
+    background: #0f5ae8;
+  }
+
+  .newsletter-btn:active {
+    transform: scale(0.98);
+  }
+
+  .newsletter-terms {
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+  }
+
+  .newsletter-terms a {
+    color: #6b7280;
+    text-decoration: none;
+  }
+
+  .newsletter-terms a:hover {
+    color: #1a6aff;
+    text-decoration: underline;
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    background: #ffffff;
+    border-top: 1px solid #eaecef;
+    padding: 56px 48px 32px;
+  }
+
+  .footer-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+
+  .footer-brand {
+    max-width: 380px;
+  }
+
+  .footer-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+    color: #4a5160;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .footer-copyright {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 18px;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 16px;
+  }
+
+  .social-link {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-link:hover {
+    color: #1a6aff;
+    transform: translateY(-2px);
+  }
+
+  .footer-col-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-size: 14px;
+    color: #4a5160;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer-links a:hover {
+    color: #1a6aff;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .destinations {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .navbar {
+      padding: 16px 24px;
+    }
+    .nav-left {
+      gap: 24px;
+    }
+    .nav-links {
+      gap: 20px;
+    }
+    .hero-wrapper {
+      padding: 16px 24px;
+    }
+    .hero {
+      height: 500px;
+    }
+    .hero-title {
+      font-size: 40px;
+    }
+    .search-bar {
+      flex-direction: column;
+      padding: 12px;
+    }
+    .search-field {
+      width: 100%;
+    }
+    .search-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .date-picker {
+      width: calc(100vw - 48px);
+      max-width: 400px;
+    }
+    .calendars {
+      grid-template-columns: 1fr;
+    }
+    .container {
+      padding: 32px 24px;
+    }
+    .features {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+    .trending-title-group h2 {
+      font-size: 24px;
+    }
+    .summer-sales {
+      grid-template-columns: 1fr;
+      height: auto;
+      padding: 40px 32px;
+      gap: 28px;
+    }
+    .sales-title {
+      font-size: 32px;
+    }
+    .sales-image {
+      justify-content: center;
+    }
+    .sales-image img {
+      width: 280px;
+      height: 280px;
+      transform: rotate(4deg);
+    }
+    .newsletter {
+      padding: 40px 24px;
+    }
+    .newsletter-title {
+      font-size: 24px;
+    }
+    .footer {
+      padding: 40px 24px 28px;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links, .sign-in {
+      display: none;
+    }
+    .hero-title {
+      font-size: 32px;
+    }
+    .hero-subtitle {
+      font-size: 15px;
+    }
+    .destinations {
+      grid-template-columns: 1fr;
+    }
+    .trending-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .sales-title {
+      font-size: 28px;
+    }
+    .sales-buttons {
+      flex-direction: column;
+    }
+    .btn-explore, .btn-join {
+      width: 100%;
+      text-align: center;
+    }
+    .newsletter-form {
+      flex-direction: column;
+      padding: 0;
+    }
+    .newsletter-input {
+      width: 100%;
+    }
+    .newsletter-btn {
+      width: 100%;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="#" class="logo">T-Goda</a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Hotels</a></li>
+      <li><a href="#">Flights</a></li>
+      <li><a href="#">Bundles</a></li>
+      <li><a href="#">Activities</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="sign-in">Sign In</a>
+    <a href="#" class="create-account">Create Account</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Escape to Your Perfect<br>Paradise</h1>
+      <p class="hero-subtitle">Unlock exclusive prices on over 2 million properties and flights across the globe.</p>
+      <div class="search-bar">
+        <!-- Destination -->
+        <div class="search-field" id="destinationField">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" placeholder="Where to next?" id="destinationInput">
+        </div>
+
+        <!-- Date -->
+        <div class="search-field date-field" id="dateField">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span class="date-display placeholder" id="dateDisplay">Select dates</span>
+
+          <!-- Date Picker Dropdown -->
+          <div class="date-picker" id="datePicker">
+            <div class="calendars">
+              <div class="calendar">
+                <div class="calendar-header">
+                  <button class="nav-btn" id="prevMonth">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                  <div class="calendar-title" id="month1Title">October 2025</div>
+                  <div style="width: 32px;"></div>
+                </div>
+                <div class="weekdays">
+                  <div class="weekday">Su</div><div class="weekday">Mo</div><div class="weekday">Tu</div>
+                  <div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div>
+                </div>
+                <div class="days" id="month1Days"></div>
+              </div>
+              <div class="calendar">
+                <div class="calendar-header">
+                  <div style="width: 32px;"></div>
+                  <div class="calendar-title" id="month2Title">November 2025</div>
+                  <button class="nav-btn" id="nextMonth">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="weekdays">
+                  <div class="weekday">Su</div><div class="weekday">Mo</div><div class="weekday">Tu</div>
+                  <div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div>
+                </div>
+                <div class="days" id="month2Days"></div>
+              </div>
+            </div>
+            <div class="picker-footer">
+              <div class="picker-info" id="pickerInfo">Select check-in date</div>
+              <div class="picker-actions">
+                <button class="btn-clear" id="btnClear">Clear</button>
+                <button class="btn-done" id="btnDone">Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <button class="search-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Search
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="container">
+
+  <!-- FEATURES SECTION -->
+  <section class="features">
+    <!-- Card 1: Best Price Guarantee -->
+    <div class="feature-card">
+      <div class="feature-icon blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+          <line x1="7" y1="7" x2="7.01" y2="7"/>
+        </svg>
+      </div>
+      <h3 class="feature-title">Best Price Guarantee</h3>
+      <p class="feature-desc">Find a lower price? We'll match it and give you a voucher for your next trip.</p>
+    </div>
+
+    <!-- Card 2: 24/7 Global Support -->
+    <div class="feature-card">
+        <div class="feature-icon pink">
+            <img src="https://i.postimg.cc/DynZQpKj/support.webp" alt="24/7 Support Icon" style="width: 22px; height: 22px; object-fit: contain;">
+        </div>
+        <h3 class="feature-title">24/7 Global Support</h3>
+        <p class="feature-desc">Our world-class support team is here to help you anywhere, anytime in 40+ languages.</p>
+    </div>
+
+    <!-- Card 3: Flexible Booking -->
+    <div class="feature-card">
+      <div class="feature-icon amber">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+          <line x1="12" y1="14" x2="12" y2="18"/>
+          <line x1="10" y1="16" x2="14" y2="16"/>
+        </svg>
+      </div>
+      <h3 class="feature-title">Flexible Booking</h3>
+      <p class="feature-desc">Life happens. Most of our properties offer free cancellation for peace of mind.</p>
+    </div>
+  </section>
+
+  <!-- TRENDING DESTINATIONS -->
+  <section class="trending">
+    <div class="trending-header">
+      <div class="trending-title-group">
+        <h2>Trending Destinations</h2>
+        <p>Handpicked favorites for your next adventure</p>
+      </div>
+      <button class="view-all">View all</button>
+    </div>
+
+    <div class="destinations">
+  <!-- Bangkok -->
+  <div class="destination" onclick="location.href='Second.html';" style="cursor: pointer;">
+    <div class="destination-image">
+      <img src="https://i.postimg.cc/JzD64q2V/Bangkok-Thailand.png" alt="Bangkok, Thailand">
+      <span class="top-rated-badge">Top Rated</span>
+    </div>
+    <h3 class="destination-name">Bangkok, Thailand</h3>
+    <p class="destination-price">Starting from <span class="price">$120</span></p>
+  </div>
+
+  <!-- Tokyo -->
+  <div class="destination" onclick="location.href='Second.html';" style="cursor: pointer;">
+    <div class="destination-image">
+      <img src="https://i.postimg.cc/bv1m1vPH/Tokyo-Japan.png" alt="Tokyo, Japan">
+    </div>
+    <h3 class="destination-name">Tokyo, Japan</h3>
+    <p class="destination-price">Starting from <span class="price">$250</span></p>
+  </div>
+
+  <!-- Paris -->
+  <div class="destination" onclick="location.href='Second.html';" style="cursor: pointer;">
+    <div class="destination-image">
+      <img src="https://i.postimg.cc/0QfZHHbk/Paris-France.png" alt="Paris, France">
+    </div>
+    <h3 class="destination-name">Paris, France</h3>
+    <p class="destination-price">Starting from <span class="price">$180</span></p>
+  </div>
+
+  <!-- London -->
+  <div class="destination" onclick="location.href='Second.html';" style="cursor: pointer;">
+    <div class="destination-image">
+      <img src="https://i.postimg.cc/G2QzSSHD/London-Uk.png" alt="London, UK">
+    </div>
+    <h3 class="destination-name">London, UK</h3>
+    <p class="destination-price">Starting from <span class="price">$210</span></p>
+  </div>
+</div>
+  </section>
+
+  <!-- SUMMER SALES BANNER -->
+  <section class="summer-sales">
+    <div class="sales-content">
+      <h2 class="sales-title">Summer Sales: Up to<br>40% Off!</h2>
+      <p class="sales-desc">Exclusive member deals on flights and luxury hotels for your next summer getaway. Valid until Oct 31st.</p>
+      <div class="sales-buttons">
+        <a href="#" class="btn-explore">Explore Deals</a>
+        <a href="#" class="btn-join">Join Club T-Goda</a>
+      </div>
+    </div>
+    <div class="sales-image">
+      <img src="https://i.postimg.cc/Wbjq4bYD/Adjustment.png" alt="Luxury pool resort">
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+    </div>
+    <h2 class="newsletter-title">Get Travel Deals Directly</h2>
+    <p class="newsletter-desc">Subscribe to our newsletter and get early access to hidden gems and seasonal discounts. No spam, only adventure.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+      <input type="email" class="newsletter-input" placeholder="Your email address" required>
+      <button type="submit" class="newsletter-btn">Subscribe Now</button>
+    </form>
+    <p class="newsletter-terms">By subscribing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="footer-logo">T-Goda</div>
+      <p class="footer-tagline">Making world travel accessible, affordable, and delightful for everyone since 2024. Your journey starts here.</p>
+      <p class="footer-copyright">© 2024 T-Goda Booking. All rights reserved.</p>
+      <div class="footer-socials">
+        <!-- Facebook -->
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <!-- Twitter -->
+        <a href="#" class="social-link" aria-label="Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Company -->
+    <div class="footer-col">
+      <h4 class="footer-col-title">Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+
+    <!-- Support -->
+    <div class="footer-col">
+      <h4 class="footer-col-title">Support</h4>
+      <ul class="footer-links">
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Mobile App</a></li>
+      </ul>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-col">
+      <h4 class="footer-col-title">Legal</h4>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ========== DATE PICKER LOGIC ==========
+  const dateField = document.getElementById('dateField');
+  const datePicker = document.getElementById('datePicker');
+  const dateDisplay = document.getElementById('dateDisplay');
+  const month1Days = document.getElementById('month1Days');
+  const month2Days = document.getElementById('month2Days');
+  const month1Title = document.getElementById('month1Title');
+  const month2Title = document.getElementById('month2Title');
+  const prevMonth = document.getElementById('prevMonth');
+  const nextMonth = document.getElementById('nextMonth');
+  const pickerInfo = document.getElementById('pickerInfo');
+  const btnClear = document.getElementById('btnClear');
+  const btnDone = document.getElementById('btnDone');
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+  const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  let currentDate = new Date();
+  currentDate.setDate(1);
+  let viewMonth = currentDate.getMonth();
+  let viewYear = currentDate.getFullYear();
+
+  let checkIn = null;
+  let checkOut = null;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Toggle picker
+  dateField.addEventListener('click', (e) => {
+    if (!datePicker.contains(e.target)) {
+      datePicker.classList.toggle('show');
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dateField.contains(e.target)) {
+      datePicker.classList.remove('show');
+    }
+  });
+
+  // Prevent bubbling inside picker
+  datePicker.addEventListener('click', (e) => e.stopPropagation());
+
+  function renderCalendar(monthOffset, containerEl, titleEl) {
+    let m = viewMonth + monthOffset;
+    let y = viewYear;
+    if (m > 11) { m -= 12; y += 1; }
+    if (m < 0) { m += 12; y -= 1; }
+
+    titleEl.textContent = `${monthNames[m]} ${y}`;
+
+    const firstDay = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+    containerEl.innerHTML = '';
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      containerEl.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'day';
+      dayEl.textContent = d;
+      const thisDate = new Date(y, m, d);
+      thisDate.setHours(0, 0, 0, 0);
+
+      if (thisDate < today) {
+        dayEl.classList.add('disabled');
+      } else {
+        dayEl.addEventListener('click', () => selectDate(thisDate));
+      }
+
+      // Highlight states
+      if (checkIn && thisDate.getTime() === checkIn.getTime()) {
+        dayEl.classList.add('range-start');
+      }
+      if (checkOut && thisDate.getTime() === checkOut.getTime()) {
+        dayEl.classList.add('range-end');
+      }
+      if (checkIn && checkOut && thisDate > checkIn && thisDate < checkOut) {
+        dayEl.classList.add('in-range');
+      }
+
+      containerEl.appendChild(dayEl);
+    }
+  }
+
+  function selectDate(date) {
+    if (!checkIn || (checkIn && checkOut)) {
+      checkIn = date;
+      checkOut = null;
+      pickerInfo.textContent = 'Select check-out date';
+    } else if (date <= checkIn) {
+      checkIn = date;
+      checkOut = null;
+      pickerInfo.textContent = 'Select check-out date';
+    } else {
+      checkOut = date;
+      pickerInfo.textContent = `${formatNights()} night${formatNights() !== 1 ? 's' : ''} selected`;
+    }
+    renderAll();
+    updateDisplay();
+  }
+
+  function formatNights() {
+    if (!checkIn || !checkOut) return 0;
+    return Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+  }
+
+  function updateDisplay() {
+    if (checkIn && checkOut) {
+      const inStr = `${shortMonths[checkIn.getMonth()]} ${checkIn.getDate()}`;
+      const outStr = `${shortMonths[checkOut.getMonth()]} ${checkOut.getDate()}`;
+      dateDisplay.textContent = `${inStr} - ${outStr}`;
+      dateDisplay.classList.remove('placeholder');
+    } else if (checkIn) {
+      const inStr = `${shortMonths[checkIn.getMonth()]} ${checkIn.getDate()}`;
+      dateDisplay.textContent = `${inStr} - ...`;
+      dateDisplay.classList.remove('placeholder');
+    } else {
+      dateDisplay.textContent = 'Select dates';
+      dateDisplay.classList.add('placeholder');
+    }
+  }
+
+  function renderAll() {
+    renderCalendar(0, month1Days, month1Title);
+    renderCalendar(1, month2Days, month2Title);
+  }
+
+  prevMonth.addEventListener('click', () => {
+    viewMonth -= 1;
+    if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
+    renderAll();
+  });
+
+  nextMonth.addEventListener('click', () => {
+    viewMonth += 1;
+    if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
+    renderAll();
+  });
+
+  btnClear.addEventListener('click', () => {
+    checkIn = null;
+    checkOut = null;
+    pickerInfo.textContent = 'Select check-in date';
+    renderAll();
+    updateDisplay();
+  });
+
+  btnDone.addEventListener('click', () => {
+    datePicker.classList.remove('show');
+  });
+
+  // Initial render
+  renderAll();
+</script>
+
+</body>
+</html>
